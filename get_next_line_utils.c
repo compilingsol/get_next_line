@@ -12,6 +12,40 @@
 
 #include "get_next_line.h"
 
+// size_t	ft_strlen(const char *s)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (s[i] != '\0')
+// 		i++;
+// 	return (i);
+// }
+
+// char	*ft_strjoin(char const *s1, char const *s2)
+// {
+// 	size_t	i;
+// 	size_t	j;
+// 	char	*newstr;
+
+// 	i = 0;
+// 	j = 0;
+// 	if (!s1 || !s2)
+// 		return (NULL);
+// 	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+// 	if (!newstr)
+// 		return (NULL);
+// 	while (s1[i])
+// 	{
+// 		newstr[i] = s1[i];
+// 		i++;
+// 	}
+// 	while (s2[j])
+// 		newstr[i++] = s2[j++];
+// 	newstr[i] = '\0';
+// 	return (newstr);
+// }
+
 // char	*ft_strchr(const char *s, int c)
 // {
 // 	size_t	i;
@@ -26,99 +60,113 @@
 // 	return ((char *)&s[i]);
 // }
 
-// static int ft_newline(const char *str)
+// size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 // {
-//     int i = 0;
-//     while (str[i] != '\0' && str[i] != '\n')
-//         i++;
-//     return i;
+// 	size_t	i;
+
+// 	i = 0;
+// 	if (size == 0)
+// 		return (ft_strlen(src));
+// 	while (src[i] != '\0' && i < (size - 1))
+// 	{
+// 		dst[i] = src[i];
+// 		i++;
+// 	}
+// 	dst[i] = '\0';
+// 	return (ft_strlen(src));
 // }
+
+// char	*ft_strdup(const char *s1)
+// {
+// 	char	*dest;
+// 	int		i;
+
+// 	dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+// 	if (dest == NULL)
+// 		return (NULL);
+// 	i = 0;
+// 	while (s1[i] != '\0')
+// 	{
+// 		dest[i] = s1[i];
+// 		i++;
+// 	}
+// 	dest[i] = '\0';
+// 	return (dest);
+// }
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = '\0';
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t n, size_t size)
+{
+	void	*p;
+
+	p = malloc(n * size);
+	if (p == 0)
+		return (NULL);
+	ft_bzero(p, n * size);
+	return (p);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	if (s1 == 0)
+		s1 = ft_calloc(1, 1);
+	if (s1 == 0)
+		return (NULL);
+	if (s2 == 0)
+		return (NULL);
+	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == 0)
+		return (NULL);
+	i = -1;
+	j = 0;
+	while (s1[++i])
+		str[i] = s1[i];
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	return (str);
+}
 
 size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strdup(const char *s1, int len)
-{
-	char	*dest;
-	int		i;
-
-	dest = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dest[i] = s1[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	size_t	i;
-	size_t	j;
-	char	*newstr;
-
-	i = 0;
-	j = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	newstr = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!newstr)
-		return (NULL);
-	while (s1[i])
-	{
-		newstr[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-		newstr[i++] = s2[j++];
-	newstr[i] = '\0';
-	return (newstr);
-}
-
-int	ft_newline(char *c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
-	if (!c)
-		return (0);
-	while (c[i])
-	{
-		if (c[i] == '\n')
-			return (1);
-	}
-	return (0);
-}
-
-char	*ft_printline(char **c)
-{
-	int	pos;
-	char	*line;
-	char	*str;
-
-	if (!*c)
+	if (s == 0)
 		return (NULL);
-	str = *c;
-	pos = 0;
-	while (str[pos] && str[pos] != '\n')
-		pos++;
-	if (str[pos] == '\n')
-		pos++;
-	line = ft_strdup(str, pos);
-	*c = ft_strdup(str + pos, ft_strlen(str + pos));
-	if (str)
-		free(str);
-	str = NULL;
-	return (line);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char) c)
+			return ((char *) &s[i]);
+		i++;
+	}
+	if ((char) c == s[i])
+		return ((char *) &s[i]);
+	return (NULL);
 }
-
