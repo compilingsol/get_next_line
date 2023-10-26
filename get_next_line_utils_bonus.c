@@ -1,49 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maria-sg <maria-sg@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 15:08:12 by maria-sg          #+#    #+#             */
-/*   Updated: 2023/10/26 16:45:49 by maria-sg         ###   ########.fr       */
+/*   Created: 2023/10/25 18:36:36 by maria-sg          #+#    #+#             */
+/*   Updated: 2023/10/25 19:05:35 by maria-sg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	size_t			i;
-	unsigned char	*ptr;
+	size_t	i;
 
 	i = 0;
-	ptr = (unsigned char *)s;
 	while (i < n)
 	{
-		ptr[i] = 0;
+		((unsigned char *)s)[i] = '\0';
 		i++;
 	}
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t n, size_t size)
 {
-	void	*ptr;
-	size_t	max;
+	void	*p;
 
-	if (nmemb == 0 || size == 0)
-	{
-		ptr = malloc(0);
-		return (ptr);
-	}
-	max = nmemb * size;
-	if (max / nmemb != size)
+	p = malloc(n * size);
+	if (p == 0)
 		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, size * nmemb);
-	return (ptr);
+	ft_bzero(p, n * size);
+	return (p);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -74,24 +63,28 @@ char	*ft_strjoin(char *s1, char *s2)
 
 size_t	ft_strlen(const char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 		i++;
 	return (i);
 }
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
+	int	i;
 
+	if (s == 0)
+		return (NULL);
 	i = 0;
-	while (s[i] != (char)c)
+	while (s[i])
 	{
-		if (s[i] == '\0')
-			return (NULL);
+		if (s[i] == (char) c)
+			return ((char *) &s[i]);
 		i++;
 	}
-	return ((char *)&s[i]);
+	if ((char) c == s[i])
+		return ((char *) &s[i]);
+	return (NULL);
 }
