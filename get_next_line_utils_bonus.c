@@ -6,7 +6,7 @@
 /*   By: maria-sg <maria-sg@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:36:36 by maria-sg          #+#    #+#             */
-/*   Updated: 2023/10/25 19:05:35 by maria-sg         ###   ########.fr       */
+/*   Updated: 2023/11/08 11:03:58 by maria-sg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,29 @@ void	*ft_calloc(size_t n, size_t size)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
+	char	*newstr;
 
-	if (s1 == 0)
-		s1 = ft_calloc(1, 1);
-	if (s1 == 0)
-		return (NULL);
-	if (s2 == 0)
-		return (NULL);
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (str == 0)
-		return (NULL);
-	i = -1;
+	i = 0;
 	j = 0;
-	while (s1[++i])
-		str[i] = s1[i];
+	if (!s1)
+		s1 = ft_calloc(1, 1);
+	if (!s1 || !s2)
+		return (NULL);
+	newstr = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!newstr)
+		return (NULL);
+	while (s1[i])
+	{
+		newstr[i] = s1[i];
+		i++;
+	}
 	while (s2[j])
-		str[i++] = s2[j++];
-	str[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+		newstr[i++] = s2[j++];
+	newstr[i] = '\0';
 	free(s1);
-	return (str);
+	return (newstr);
 }
 
 size_t	ft_strlen(const char *s)

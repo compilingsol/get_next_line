@@ -6,7 +6,7 @@
 /*   By: maria-sg <maria-sg@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 14:37:39 by maria-sg          #+#    #+#             */
-/*   Updated: 2023/10/26 16:37:35 by maria-sg         ###   ########.fr       */
+/*   Updated: 2023/11/08 13:32:05 by maria-sg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_findline(char *buffer)
 
 	i = 0;
 	j = 0;
-	if (buffer[i] == 0)
+	if (!buffer[i])
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
@@ -74,13 +74,15 @@ char	*ft_nextline(char *buffer)
 	char	*next_line;
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
+	len = ft_strlen(buffer);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
-	if (buffer[i] == 0)
+	if (!buffer[i])
 		return (free(buffer), (NULL));
-	next_line = (char *)malloc((ft_strlen(buffer) - i + 1) * sizeof(char));
+	next_line = (char *)malloc((len - i + 1) * sizeof(char));
 	if (!next_line)
 		return (NULL);
 	i++;

@@ -6,13 +6,13 @@
 /*   By: maria-sg <maria-sg@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:34:46 by maria-sg          #+#    #+#             */
-/*   Updated: 2023/10/26 16:37:02 by maria-sg         ###   ########.fr       */
+/*   Updated: 2023/11/08 11:33:14 by maria-sg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-// #include <stdio.h>
-// #include <fcntl.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 //reads from a file descriptor fd into a buffer
 //until it encounters a newline character ('\n')
@@ -108,72 +108,89 @@ char	*get_next_line(int fd)
 
 // int main(void)
 // {
-// 	int fd;
+// 	int fd1;
+// 	int fd2;
 // 	char *line;
 
-// 	fd = open("Under.txt", O_RDONLY);
-// 	if (fd < 0)
+// 	fd1 = open("Under.txt", O_RDONLY);
+// 	fd2 = open("Bajo.txt", O_RDONLY);
+// 	if (fd1 < 0 || fd2 < 0)
 // 	{
 // 		perror("Error opening file");
 // 		return 1;
 // 	}
 
-// 	while ((line = get_next_line(fd)) != NULL)
+// 	while ((line = get_next_line(fd1)) != NULL)
 // 	{
 // 		printf("%s\n", line);
 // 		free(line);
 // 	}
 
-// 	close(fd);
+// 		while ((line = get_next_line(fd2)) != NULL)
+// 	{
+// 		printf("%s\n", line);
+// 		free(line);
+// 	}
 
+// 	close(fd1);
+// 	close(fd2);
 // 	return 0;
-// }
-
-// int main(int argc, char *argv[])
-// {
-//     if (argc != 2)
-//     {
-//         printf("Usage: %s <file_path>\n", argv[0]);
-//         return 1;
-//     }
-
-//     int fd;
-//     char *line;
-
-//     fd = open(argv[1], O_RDONLY);
-//     if (fd < 0)
-//     {
-//         perror("Error opening file");
-//         return 1;
-//     }
-
-//     while ((line = get_next_line(fd)) != NULL)
-//     {
-//         printf("%s\n", line);
-//         free(line);
-//     }
-
-//     close(fd);
-
-//     return 0;
 // }
 
 // int main(int argc, char *argv[])
 // {
 //     if (argc != 3)
 //     {
-//         printf("Usage: %s <file_path> <line_limit>\n", argv[0]);
+//         printf("Usage: %s <file_path> <file_path>\n", argv[0]);
 //         return 1;
 //     }
 
-//     int fd;
+//     int fd1, fd2;
 //     char *line;
-//		Convert the limit from a command line argument
-//     int lineLimit = atoi(argv[2]);
+
+//     fd1 = open(argv[1], O_RDONLY);
+// 	fd2 = open(argv[2], O_RDONLY);
+//     if (fd1 < 0 || fd2 < 0)
+//     {
+//         perror("Error opening file");
+//         return 1;
+//     }
+
+//     while ((line = get_next_line(fd1)) != NULL)
+//     {
+//         printf("%s\n", line);
+//         free(line);
+//     }
+
+// 	    while ((line = get_next_line(fd2)) != NULL)
+//     {
+//         printf("%s\n", line);
+//         free(line);
+//     }
+
+//     close(fd1);
+// 	close(fd2);
+
+//     return 0;
+// }
+
+// int main(int argc, char *argv[])
+// {
+//     if (argc != 4)
+//     {
+//         printf("Usage: %s <file_path> <file_path> <line_limit>\n", argv[0]);
+//         return 1;
+//     }
+
+//     int fd1, fd2;
+//     char *line;
+// 	//Convert the limit from a command line argument
+//     int lineLimit = atoi(argv[3]);
 
 //     // Open the file specified by the command line argument
-//     fd = open(argv[1], O_RDONLY);
-//     if (fd < 0)
+//     fd1 = open(argv[1], O_RDONLY);
+// 	fd2 = open(argv[2], O_RDONLY);
+//     if (fd1 < 0 || fd2 < 0)
 //     {
 //         perror("Error opening file");
 //         return 1;
@@ -182,15 +199,25 @@ char	*get_next_line(int fd)
 //     int linesPrinted = 0;
 
 //     // Read and print lines from the file, respecting the line limit
-//     while (linesPrinted < lineLimit && (line = get_next_line(fd)) != NULL)
+//     while (linesPrinted < lineLimit && (line = get_next_line(fd1)) != NULL)
 //     {
 //         printf("%s\n", line);
 //         free(line);
 //         linesPrinted++;
 //     }
 
-//     // Close the file
-//     close(fd);
+// 	int linesPrinted2 = 0;
 
+//     // Read and print lines from the file, respecting the line limit
+//     while (linesPrinted2 < lineLimit && (line = get_next_line(fd2)) != NULL)
+//     {
+//         printf("%s\n", line);
+//         free(line);
+//         linesPrinted2++;
+//     }
+
+//     // Close the file
+//     close(fd1);
+//     close(fd2);
 //     return 0;
 // }
